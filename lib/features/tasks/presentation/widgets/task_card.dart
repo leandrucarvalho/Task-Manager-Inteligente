@@ -21,7 +21,7 @@ class TaskCard extends StatelessWidget {
       case TaskStatus.inProgress:
         return 'Em progresso';
       case TaskStatus.done:
-        return 'Concluída';
+        return 'ConcluÃ­da';
     }
   }
 
@@ -70,9 +70,11 @@ class TaskCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: _statusColor(task.status, context).withOpacity(0.15),
+                      color: _statusColor(task.status, context)
+                          .withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
