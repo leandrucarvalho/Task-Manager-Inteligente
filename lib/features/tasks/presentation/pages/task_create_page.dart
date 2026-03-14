@@ -70,10 +70,10 @@ class _TaskCreatePageState extends ConsumerState<TaskCreatePage> {
               children: [
                 TextFormField(
                   controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Título'),
+                  decoration: const InputDecoration(labelText: 'Tï¿½tulo'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Informe o título';
+                      return 'Informe o tÃ­tulo';
                     }
                     return null;
                   },
@@ -82,10 +82,10 @@ class _TaskCreatePageState extends ConsumerState<TaskCreatePage> {
                 TextFormField(
                   controller: _descriptionController,
                   maxLines: 4,
-                  decoration: const InputDecoration(labelText: 'Descrição'),
+                  decoration: const InputDecoration(labelText: 'DescriÃ§Ã£o'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Informe a descrição';
+                      return 'Informe a descriÃ§Ã£o';
                     }
                     return null;
                   },
@@ -153,7 +153,7 @@ class _TaskCreatePageState extends ConsumerState<TaskCreatePage> {
       case TaskPriority.low:
         return 'Baixa';
       case TaskPriority.medium:
-        return 'Média';
+        return 'Mï¿½dia';
       case TaskPriority.high:
         return 'Alta';
     }
@@ -166,7 +166,7 @@ class _TaskCreatePageState extends ConsumerState<TaskCreatePage> {
       case TaskStatus.inProgress:
         return 'Em progresso';
       case TaskStatus.done:
-        return 'Concluída';
+        return 'ConcluÃ­da';
     }
   }
 }

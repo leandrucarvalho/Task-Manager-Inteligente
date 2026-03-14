@@ -19,25 +19,32 @@ class StatusFilterBar extends ConsumerWidget {
             context,
             label: 'Todas',
             isSelected: selected == null,
-            onSelected: () => ref.read(taskStatusFilterProvider.notifier).state = null,
+            onSelected: () =>
+                ref.read(taskStatusFilterProvider.notifier).state = null,
           ),
           _buildChip(
             context,
             label: 'A fazer',
             isSelected: selected == TaskStatus.todo,
-            onSelected: () => ref.read(taskStatusFilterProvider.notifier).state = TaskStatus.todo,
+            onSelected: () => ref
+                .read(taskStatusFilterProvider.notifier)
+                .state = TaskStatus.todo,
           ),
           _buildChip(
             context,
             label: 'Em progresso',
             isSelected: selected == TaskStatus.inProgress,
-            onSelected: () => ref.read(taskStatusFilterProvider.notifier).state = TaskStatus.inProgress,
+            onSelected: () => ref
+                .read(taskStatusFilterProvider.notifier)
+                .state = TaskStatus.inProgress,
           ),
           _buildChip(
             context,
-            label: 'Concluídas',
+            label: 'ConcluÃ­das',
             isSelected: selected == TaskStatus.done,
-            onSelected: () => ref.read(taskStatusFilterProvider.notifier).state = TaskStatus.done,
+            onSelected: () => ref
+                .read(taskStatusFilterProvider.notifier)
+                .state = TaskStatus.done,
           ),
         ],
       ),

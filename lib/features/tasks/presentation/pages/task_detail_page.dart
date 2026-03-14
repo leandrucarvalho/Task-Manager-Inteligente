@@ -29,7 +29,8 @@ class TaskDetailPage extends ConsumerWidget {
         title: const Text('Detalhes da tarefa'),
         actions: [
           IconButton(
-            onPressed: deleteState.isLoading ? null : () => _deleteTask(context, ref),
+            onPressed:
+                deleteState.isLoading ? null : () => _deleteTask(context, ref),
             icon: const Icon(Icons.delete_outline),
           ),
         ],
@@ -86,7 +87,7 @@ class TaskDetailPage extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Excluir tarefa?'),
-        content: const Text('Essa ação não pode ser desfeita.'),
+        content: const Text('Essa aï¿½ï¿½o nï¿½o pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -122,7 +123,7 @@ class _StatusChip extends StatelessWidget {
       case TaskStatus.inProgress:
         return 'Em progresso';
       case TaskStatus.done:
-        return 'Concluída';
+        return 'ConcluÃ­da';
     }
   }
 

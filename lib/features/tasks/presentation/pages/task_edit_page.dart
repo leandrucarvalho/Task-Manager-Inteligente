@@ -25,7 +25,8 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.task.title);
-    _descriptionController = TextEditingController(text: widget.task.description);
+    _descriptionController =
+        TextEditingController(text: widget.task.description);
     _priority = widget.task.priority;
     _status = widget.task.status;
   }
@@ -79,10 +80,10 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
               children: [
                 TextFormField(
                   controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Título'),
+                  decoration: const InputDecoration(labelText: 'TÃ­tulo'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Informe o título';
+                      return 'Informe o tÃ­tulo';
                     }
                     return null;
                   },
@@ -91,10 +92,10 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
                 TextFormField(
                   controller: _descriptionController,
                   maxLines: 4,
-                  decoration: const InputDecoration(labelText: 'Descrição'),
+                  decoration: const InputDecoration(labelText: 'DescriÃ§Ã£o'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Informe a descrição';
+                      return 'Informe a descriï¿½ï¿½o';
                     }
                     return null;
                   },
@@ -146,7 +147,7 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
                             width: 20,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Text('Salvar alterações'),
+                        : const Text('Salvar alteraÃ§Ãµes'),
                   ),
                 ),
               ],
@@ -162,7 +163,7 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
       case TaskPriority.low:
         return 'Baixa';
       case TaskPriority.medium:
-        return 'Média';
+        return 'MÃ©dia';
       case TaskPriority.high:
         return 'Alta';
     }
@@ -175,7 +176,7 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
       case TaskStatus.inProgress:
         return 'Em progresso';
       case TaskStatus.done:
-        return 'Concluída';
+        return 'ConcluÃ­da';
     }
   }
 }
