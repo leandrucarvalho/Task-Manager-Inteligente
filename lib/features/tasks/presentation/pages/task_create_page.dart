@@ -70,7 +70,7 @@ class _TaskCreatePageState extends ConsumerState<TaskCreatePage> {
               children: [
                 TextFormField(
                   controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'T�tulo'),
+                  decoration: const InputDecoration(labelText: 'Título'),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Informe o título';
@@ -153,7 +153,7 @@ class _TaskCreatePageState extends ConsumerState<TaskCreatePage> {
       case TaskPriority.low:
         return 'Baixa';
       case TaskPriority.medium:
-        return 'M�dia';
+        return 'Média';
       case TaskPriority.high:
         return 'Alta';
     }

@@ -28,7 +28,9 @@ class TaskApiService {
 
     final response = await _dio.get('/tasks');
     final data = response.data as List<dynamic>;
-    return data.map((json) => TaskModel.fromJson(json as Map<String, dynamic>)).toList();
+    return data
+        .map((json) => TaskModel.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 
   Future<TaskModel> createTask(TaskModel task) async {
@@ -86,7 +88,7 @@ class TaskApiService {
       ),
       TaskModel(
         id: '3',
-        title: 'Atualizar documentação',
+        title: 'Atualizar documentaÃ§Ã£o',
         description: 'Publicar novas regras de arquitetura.',
         priority: TaskPriority.low,
         status: TaskStatus.done,

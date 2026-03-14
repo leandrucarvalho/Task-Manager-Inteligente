@@ -87,7 +87,7 @@ class TaskDetailPage extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Excluir tarefa?'),
-        content: const Text('Essa a��o n�o pode ser desfeita.'),
+        content: const Text('Essa ação não pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),

@@ -23,7 +23,7 @@ class PriorityIndicator extends StatelessWidget {
       case TaskPriority.low:
         return 'Baixa';
       case TaskPriority.medium:
-        return 'Média';
+        return 'MÃ©dia';
       case TaskPriority.high:
         return 'Alta';
     }
@@ -36,7 +36,7 @@ class PriorityIndicator extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
