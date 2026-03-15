@@ -9,7 +9,7 @@ Camadas principais:
 - **domain**: entidades e casos de uso.
 - **data**: models, serviços e repositórios.
 
-Fluxo: UI ? Provider (ViewModel) ? UseCase ? Repository ? DataSource (API) ? retorno para UI.
+Fluxo: UI ? Provider (ViewModel) ? UseCase ? Repository ? DataSource (API/Local/IA) ? retorno para UI.
 
 ## Estrutura de pastas
 
@@ -27,6 +27,31 @@ lib/
 
 1. `flutter pub get`
 2. `flutter run`
+
+## Armazenamento local (SQLite)
+
+O projeto já inclui integração com **sqflite**.
+
+No arquivo `lib/features/tasks/presentation/providers/task_dependencies.dart`, ajuste:
+
+- `useLocalStorage = true` para usar SQLite
+- `useLocalStorage = false` para usar API (mock/real)
+
+## Integração com OpenRouter (IA)
+
+A sugestão automática de prioridade usa a API da OpenRouter.
+
+Configure via `--dart-define`:
+
+```
+flutter run \
+  --dart-define=OPENROUTER_API_KEY=SEU_TOKEN \
+  --dart-define=OPENROUTER_MODEL=openai/gpt-4 \
+  --dart-define=OPENROUTER_TITLE="Task Manager Inteligente" \
+  --dart-define=OPENROUTER_REFERER="https://seuapp.com"
+```
+
+Observação: não é recomendado expor a API key no app em produção. O ideal é usar um backend/proxy.
 
 ## Integração com backend real
 

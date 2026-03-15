@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/widgets/success_snackbar.dart';
 import '../../domain/entities/task_entity.dart';
+import '../providers/task_ai_provider.dart';
 import '../providers/task_update_provider.dart';
 
 class TaskEditPage extends ConsumerStatefulWidget {
@@ -13,10 +15,15 @@ class TaskEditPage extends ConsumerStatefulWidget {
   ConsumerState<TaskEditPage> createState() => _TaskEditPageState();
 }
 
-class _TaskEditPageState extends ConsumerState<TaskEditPage> {
+class _TaskEditPageState extends ConsumerState<TaskEditPage>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late final TextEditingController _descriptionController;
+
+  late final AnimationController _enterController;
+  late final Animation<double> _fade;
+  late final Animation<Offset> _slide;
 
   late TaskPriority _priority;
   late TaskStatus _status;
@@ -29,10 +36,26 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
         TextEditingController(text: widget.task.description);
     _priority = widget.task.priority;
     _status = widget.task.status;
+
+    _enterController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    final curved = CurvedAnimation(
+      parent: _enterController,
+      curve: Curves.easeOutCubic,
+    );
+    _fade = curved;
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.04),
+      end: Offset.zero,
+    ).animate(curved);
+    _enterController.forward();
   }
 
   @override
   void dispose() {
+    _enterController.dispose();
     _titleController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -51,7 +74,7 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
     await ref.read(taskUpdateProvider.notifier).update(updated);
 
     if (context.mounted) {
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(updated);
     }
   }
 
@@ -65,7 +88,24 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
       }
     });
 
+    ref.listen<AsyncValue<TaskPriority?>>(taskPrioritySuggestionProvider,
+        (previous, next) {
+      if (next.hasError && next != previous) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao sugerir prioridade: ${next.error}')),
+        );
+      }
+      final suggestion = next.value;
+      if (suggestion != null && suggestion != previous?.value) {
+        setState(() => _priority = suggestion);
+        ScaffoldMessenger.of(context).showSnackBar(
+          successSnackBar(context, 'Prioridade sugerida automaticamente.'),
+        );
+      }
+    });
+
     final updateState = ref.watch(taskUpdateProvider);
+    final suggestionState = ref.watch(taskPrioritySuggestionProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -74,83 +114,117 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Título'),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Informe o título';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _descriptionController,
-                  maxLines: 4,
-                  decoration: const InputDecoration(labelText: 'Descrição'),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Informe a descri��o';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<TaskPriority>(
-                  value: _priority,
-                  decoration: const InputDecoration(labelText: 'Prioridade'),
-                  items: TaskPriority.values
-                      .map(
-                        (priority) => DropdownMenuItem(
-                          value: priority,
-                          child: Text(_priorityLabel(priority)),
+          child: FadeTransition(
+            opacity: _fade,
+            child: SlideTransition(
+              position: _slide,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: const InputDecoration(labelText: 'Título'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Informe o título';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _descriptionController,
+                      maxLines: 4,
+                      decoration: const InputDecoration(labelText: 'Descrição'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Informe a descrição';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: DropdownButtonFormField<TaskPriority>(
+                            value: _priority,
+                            decoration:
+                                const InputDecoration(labelText: 'Prioridade'),
+                            items: TaskPriority.values
+                                .map(
+                                  (priority) => DropdownMenuItem(
+                                    value: priority,
+                                    child: Text(_priorityLabel(priority)),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() => _priority = value);
+                              }
+                            },
+                          ),
                         ),
-                      )
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _priority = value);
-                    }
-                  },
-                ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<TaskStatus>(
-                  value: _status,
-                  decoration: const InputDecoration(labelText: 'Status'),
-                  items: TaskStatus.values
-                      .map(
-                        (status) => DropdownMenuItem(
-                          value: status,
-                          child: Text(_statusLabel(status)),
+                        const SizedBox(width: 12),
+                        OutlinedButton.icon(
+                          onPressed: suggestionState.isLoading
+                              ? null
+                              : () => ref
+                                  .read(taskPrioritySuggestionProvider.notifier)
+                                  .suggest(
+                                    title: _titleController.text,
+                                    description: _descriptionController.text,
+                                  ),
+                          icon: suggestionState.isLoading
+                              ? const SizedBox(
+                                  height: 16,
+                                  width: 16,
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 2),
+                                )
+                              : const Icon(Icons.auto_awesome),
+                          label: const Text('Sugerir'),
                         ),
-                      )
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _status = value);
-                    }
-                  },
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: updateState.isLoading ? null : _submit,
-                    child: updateState.isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<TaskStatus>(
+                      value: _status,
+                      decoration: const InputDecoration(labelText: 'Status'),
+                      items: TaskStatus.values
+                          .map(
+                            (status) => DropdownMenuItem(
+                              value: status,
+                              child: Text(_statusLabel(status)),
+                            ),
                           )
-                        : const Text('Salvar alterações'),
-                  ),
+                          .toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() => _status = value);
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        onPressed: updateState.isLoading ? null : _submit,
+                        child: updateState.isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : const Text('Salvar alterações'),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

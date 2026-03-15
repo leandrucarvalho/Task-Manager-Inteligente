@@ -7,14 +7,14 @@ class PriorityIndicator extends StatelessWidget {
 
   final TaskPriority priority;
 
-  Color _color(BuildContext context) {
+  Color _color(ColorScheme scheme) {
     switch (priority) {
       case TaskPriority.low:
-        return Colors.green;
+        return scheme.tertiary;
       case TaskPriority.medium:
-        return Colors.orange;
+        return scheme.secondary;
       case TaskPriority.high:
-        return Colors.red;
+        return scheme.error;
     }
   }
 
@@ -31,13 +31,15 @@ class PriorityIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _color(context);
+    final scheme = Theme.of(context).colorScheme;
+    final color = _color(scheme);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
+        color: color.withOpacity(0.2),
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.4)),
       ),
       child: Text(
         _label(),

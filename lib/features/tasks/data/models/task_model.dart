@@ -28,6 +28,17 @@ class TaskModel {
     );
   }
 
+  factory TaskModel.fromDb(Map<String, dynamic> map) {
+    return TaskModel(
+      id: map['id'] as String,
+      title: map['title'] as String,
+      description: map['description'] as String,
+      priority: TaskPriority.values[map['priority'] as int],
+      status: TaskStatus.values[map['status'] as int],
+      createdAt: DateTime.parse(map['createdAt'] as String),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -35,6 +46,17 @@ class TaskModel {
       'description': description,
       'priority': priority.name,
       'status': status.name,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+
+  Map<String, dynamic> toDb() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'priority': priority.index,
+      'status': status.index,
       'createdAt': createdAt.toIso8601String(),
     };
   }

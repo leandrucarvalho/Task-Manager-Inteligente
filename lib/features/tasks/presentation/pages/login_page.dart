@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'task_list_page.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,9 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const TaskListPage()),
-    );
+    Navigator.of(context).pushReplacementNamed(AppRoutes.tasks);
   }
 
   @override
