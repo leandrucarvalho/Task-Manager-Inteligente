@@ -1,8 +1,9 @@
-import 'package:dio/dio.dart';
+﻿import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/config/app_config.dart';
 import '../../../../core/network/dio_client.dart';
+import '../../data/datasources/task_ai_cache_datasource.dart';
 import '../../data/datasources/task_ai_service.dart';
 import '../../data/datasources/task_api_service.dart';
 import '../../data/datasources/task_local_datasource.dart';
@@ -36,6 +37,10 @@ final taskLocalDataSourceProvider = Provider<TaskLocalDataSource>((ref) {
   return TaskLocalDataSource(db: ref.read(taskLocalDbProvider));
 });
 
+final taskAiCacheDataSourceProvider = Provider<TaskAiCacheDataSource>((ref) {
+  return TaskAiCacheDataSource(db: ref.read(taskLocalDbProvider));
+});
+
 final taskApiServiceProvider = Provider<TaskApiService>((ref) {
   return TaskApiService(
     dio: ref.read(dioProvider),
@@ -56,7 +61,10 @@ final taskRepositoryProvider = Provider<TaskRepository>((ref) {
 });
 
 final taskAiRepositoryProvider = Provider<TaskAiRepository>((ref) {
-  return TaskAiRepositoryImpl(service: ref.read(taskAiServiceProvider));
+  return TaskAiRepositoryImpl(
+    service: ref.read(taskAiServiceProvider),
+    cache: ref.read(taskAiCacheDataSourceProvider),
+  );
 });
 
 final getTasksProvider = Provider<GetTasks>((ref) {
@@ -78,3 +86,4 @@ final deleteTaskProvider = Provider<DeleteTask>((ref) {
 final suggestTaskPriorityProvider = Provider<SuggestTaskPriority>((ref) {
   return SuggestTaskPriority(ref.read(taskAiRepositoryProvider));
 });
+

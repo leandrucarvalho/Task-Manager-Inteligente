@@ -1,4 +1,4 @@
-import 'package:sqflite/sqflite.dart';
+﻿import 'package:sqflite/sqflite.dart';
 
 import '../models/task_model.dart';
 import 'task_local_db.dart';
@@ -47,3 +47,4 @@ class TaskLocalDataSource {
     );
   }
 }
+

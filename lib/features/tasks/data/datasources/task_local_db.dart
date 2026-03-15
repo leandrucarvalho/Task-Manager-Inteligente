@@ -1,4 +1,4 @@
-import 'package:sqflite/sqflite.dart';
+﻿import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
 class TaskLocalDb {
@@ -7,7 +7,7 @@ class TaskLocalDb {
   static final TaskLocalDb instance = TaskLocalDb._();
 
   static const _dbName = 'tasks.db';
-  static const _dbVersion = 1;
+  static const _dbVersion = 2;
 
   Database? _database;
 
@@ -24,6 +24,7 @@ class TaskLocalDb {
       path,
       version: _dbVersion,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -38,5 +39,30 @@ class TaskLocalDb {
         createdAt TEXT NOT NULL
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE ai_priority_cache (
+        cacheKey TEXT PRIMARY KEY,
+        priority INTEGER NOT NULL,
+        reason TEXT NOT NULL,
+        source TEXT NOT NULL,
+        createdAt TEXT NOT NULL
+      )
+    ''');
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('''
+        CREATE TABLE ai_priority_cache (
+          cacheKey TEXT PRIMARY KEY,
+          priority INTEGER NOT NULL,
+          reason TEXT NOT NULL,
+          source TEXT NOT NULL,
+          createdAt TEXT NOT NULL
+        )
+      ''');
+    }
   }
 }
+

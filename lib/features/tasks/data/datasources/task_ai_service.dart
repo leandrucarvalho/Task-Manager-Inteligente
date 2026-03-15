@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+﻿import 'package:dio/dio.dart';
 
 import '../../domain/entities/task_entity.dart';
 import '../../../../core/config/app_config.dart';
@@ -13,7 +13,7 @@ class TaskAiService {
     required String description,
   }) async {
     if (!AppConfig.hasOpenRouterKey) {
-      throw StateError('OpenRouter API key n�o configurada.');
+      throw StateError('OpenRouter API key nï¿½o configurada.');
     }
 
     final response = await _dio.post(

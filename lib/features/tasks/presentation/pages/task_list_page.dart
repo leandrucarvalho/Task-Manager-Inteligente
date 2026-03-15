@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/theme_mode_provider.dart';
@@ -149,8 +149,9 @@ class TaskListPage extends ConsumerWidget {
 
     if (result == 'deleted') {
       ScaffoldMessenger.of(context).showSnackBar(
-        successSnackBar(context, 'Tarefa exclu�da com sucesso.'),
+        successSnackBar(context, 'Tarefa excluída com sucesso.'),
       );
     }
   }
 }
+

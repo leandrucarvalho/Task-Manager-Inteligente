@@ -1,4 +1,4 @@
-class Failure {
+﻿class Failure {
   Failure(this.message);
 
   final String message;
@@ -6,3 +6,4 @@ class Failure {
   @override
   String toString() => 'Failure(message: $message)';
 }
+

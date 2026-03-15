@@ -1,4 +1,4 @@
-import '../../domain/entities/task_entity.dart';
+﻿import '../../domain/entities/task_entity.dart';
 
 class TaskModel {
   TaskModel({
@@ -83,3 +83,4 @@ class TaskModel {
     );
   }
 }
+

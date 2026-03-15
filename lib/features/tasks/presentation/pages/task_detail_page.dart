@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/utils/date_formatter.dart';
@@ -117,7 +117,7 @@ class _TaskDetailPageState extends ConsumerState<TaskDetailPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Excluir tarefa?'),
-        content: const Text('Essa a��o n�o pode ser desfeita.'),
+        content: const Text('Essa ação não pode ser desfeita.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),

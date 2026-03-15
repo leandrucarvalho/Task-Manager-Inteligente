@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+﻿import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:task_manager_inteligente/features/tasks/domain/entities/task_entity.dart';
@@ -58,3 +58,4 @@ void main() {
     expect(state.value, tasks);
   });
 }
+

@@ -1,4 +1,4 @@
-import '../entities/task_entity.dart';
+﻿import '../entities/task_entity.dart';
 
 abstract class TaskRepository {
   Future<List<TaskEntity>> getTasks();
@@ -6,3 +6,4 @@ abstract class TaskRepository {
   Future<TaskEntity> updateTask(TaskEntity task);
   Future<void> deleteTask(String id);
 }
+

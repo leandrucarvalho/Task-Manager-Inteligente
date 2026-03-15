@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/widgets/success_snackbar.dart';
 import '../../domain/entities/task_entity.dart';
+import '../../domain/entities/task_priority_suggestion.dart';
 import '../providers/task_ai_provider.dart';
 import '../providers/task_update_provider.dart';
+import 'package:task_manager_inteligente/features/tasks/presentation/widgets/priority_suggestion_badge.dart';
 
 class TaskEditPage extends ConsumerStatefulWidget {
   const TaskEditPage({super.key, required this.task});
@@ -88,8 +90,8 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage>
       }
     });
 
-    ref.listen<AsyncValue<TaskPriority?>>(taskPrioritySuggestionProvider,
-        (previous, next) {
+    ref.listen<AsyncValue<TaskPrioritySuggestion?>>(
+        taskPrioritySuggestionProvider, (previous, next) {
       if (next.hasError && next != previous) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Erro ao sugerir prioridade: ${next.error}')),
@@ -97,7 +99,7 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage>
       }
       final suggestion = next.value;
       if (suggestion != null && suggestion != previous?.value) {
-        setState(() => _priority = suggestion);
+        setState(() => _priority = suggestion.priority);
         ScaffoldMessenger.of(context).showSnackBar(
           successSnackBar(context, 'Prioridade sugerida automaticamente.'),
         );
@@ -106,6 +108,7 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage>
 
     final updateState = ref.watch(taskUpdateProvider);
     final suggestionState = ref.watch(taskPrioritySuggestionProvider);
+    final suggestion = suggestionState.value;
 
     return Scaffold(
       appBar: AppBar(
@@ -189,6 +192,10 @@ class _TaskEditPageState extends ConsumerState<TaskEditPage>
                         ),
                       ],
                     ),
+                    if (suggestion != null) ...[
+                      const SizedBox(height: 12),
+                      PrioritySuggestionBadge(suggestion: suggestion),
+                    ],
                     const SizedBox(height: 16),
                     DropdownButtonFormField<TaskStatus>(
                       value: _status,

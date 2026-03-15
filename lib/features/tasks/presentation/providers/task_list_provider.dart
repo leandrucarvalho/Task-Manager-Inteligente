@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/task_entity.dart';
 import 'task_dependencies.dart';
@@ -24,3 +24,4 @@ class TaskListNotifier extends StateNotifier<AsyncValue<List<TaskEntity>>> {
 final taskListProvider = StateNotifierProvider<TaskListNotifier, AsyncValue<List<TaskEntity>>>(
   (ref) => TaskListNotifier(ref),
 );
+

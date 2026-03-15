@@ -1,10 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/task_entity.dart';
+import '../../domain/entities/task_priority_suggestion.dart';
 import 'task_dependencies.dart';
 
 class TaskPrioritySuggestionNotifier
-    extends StateNotifier<AsyncValue<TaskPriority?>> {
+    extends StateNotifier<AsyncValue<TaskPrioritySuggestion?>> {
   TaskPrioritySuggestionNotifier(this._ref)
       : super(const AsyncValue.data(null));
 
@@ -33,6 +33,7 @@ class TaskPrioritySuggestionNotifier
 }
 
 final taskPrioritySuggestionProvider = StateNotifierProvider.autoDispose<
-    TaskPrioritySuggestionNotifier, AsyncValue<TaskPriority?>>(
+    TaskPrioritySuggestionNotifier, AsyncValue<TaskPrioritySuggestion?>>(
   (ref) => TaskPrioritySuggestionNotifier(ref),
 );
+

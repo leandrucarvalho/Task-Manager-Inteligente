@@ -1,8 +1,9 @@
-import '../entities/task_entity.dart';
+﻿import '../entities/task_priority_suggestion.dart';
 
 abstract class TaskAiRepository {
-  Future<TaskPriority> suggestPriority({
+  Future<TaskPrioritySuggestion> suggestPriority({
     required String title,
     required String description,
   });
 }
+

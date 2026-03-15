@@ -51,6 +51,12 @@ flutter run \
   --dart-define=OPENROUTER_REFERER="https://seuapp.com"
 ```
 
+### Cache e fallback
+
+- As sugestões são cacheadas localmente (SQLite) por título + descrição.
+- Se a IA estiver indisponível, uma heurística local escolhe a prioridade.
+- Um badge explica a origem e o motivo da sugestão.
+
 Observação: não é recomendado expor a API key no app em produção. O ideal é usar um backend/proxy.
 
 ## Integração com backend real

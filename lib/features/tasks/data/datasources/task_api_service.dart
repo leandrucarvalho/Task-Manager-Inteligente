@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:dio/dio.dart';
 
@@ -88,7 +88,7 @@ class TaskApiService {
       ),
       TaskModel(
         id: '3',
-        title: 'Atualizar documentação',
+        title: 'Atualizar documentaÃ§Ã£o',
         description: 'Publicar novas regras de arquitetura.',
         priority: TaskPriority.low,
         status: TaskStatus.done,
@@ -97,3 +97,4 @@ class TaskApiService {
     ]);
   }
 }
+

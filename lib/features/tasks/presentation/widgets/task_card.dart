@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 
 import '../../../../core/utils/date_formatter.dart';
 import '../../domain/entities/task_entity.dart';

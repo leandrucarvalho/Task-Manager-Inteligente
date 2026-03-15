@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 
 SnackBar successSnackBar(BuildContext context, String message) {
   final scheme = Theme.of(context).colorScheme;
@@ -22,3 +22,4 @@ SnackBar successSnackBar(BuildContext context, String message) {
     ),
   );
 }
+

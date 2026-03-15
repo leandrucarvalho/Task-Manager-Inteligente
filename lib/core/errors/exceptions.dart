@@ -1,4 +1,4 @@
-class ApiException implements Exception {
+﻿class ApiException implements Exception {
   ApiException(this.message, {this.statusCode});
 
   final String message;
@@ -7,3 +7,4 @@ class ApiException implements Exception {
   @override
   String toString() => 'ApiException(statusCode: $statusCode, message: $message)';
 }
+

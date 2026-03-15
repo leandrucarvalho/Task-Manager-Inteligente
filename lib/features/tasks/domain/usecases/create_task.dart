@@ -1,4 +1,4 @@
-import '../entities/task_entity.dart';
+﻿import '../entities/task_entity.dart';
 import '../repositories/task_repository.dart';
 
 class CreateTask {
@@ -10,3 +10,4 @@ class CreateTask {
     return _repository.createTask(task);
   }
 }
+

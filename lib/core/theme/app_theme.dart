@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 
 import 'page_transitions.dart';
 
@@ -175,3 +175,4 @@ class AppTheme {
     );
   }
 }
+

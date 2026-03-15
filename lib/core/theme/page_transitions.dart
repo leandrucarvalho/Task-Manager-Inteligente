@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 
 class FadeSlidePageTransitionsBuilder extends PageTransitionsBuilder {
   const FadeSlidePageTransitionsBuilder();
@@ -35,3 +35,4 @@ class FadeSlidePageTransitionsBuilder extends PageTransitionsBuilder {
     );
   }
 }
+

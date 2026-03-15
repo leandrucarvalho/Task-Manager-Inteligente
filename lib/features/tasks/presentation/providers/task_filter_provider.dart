@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/task_entity.dart';
 import 'task_list_provider.dart';
@@ -30,3 +30,4 @@ final filteredTasksProvider = Provider<AsyncValue<List<TaskEntity>>>((ref) {
     return result;
   });
 });
+

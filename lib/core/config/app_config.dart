@@ -1,4 +1,4 @@
-class AppConfig {
+﻿class AppConfig {
   static const openRouterApiKey = String.fromEnvironment('OPENROUTER_API_KEY');
   static const openRouterModel = String.fromEnvironment(
     'OPENROUTER_MODEL',
@@ -19,3 +19,4 @@ class AppConfig {
 
   static bool get hasOpenRouterKey => openRouterApiKey.isNotEmpty;
 }
+

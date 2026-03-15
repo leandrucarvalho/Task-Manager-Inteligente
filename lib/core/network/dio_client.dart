@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+﻿import 'package:dio/dio.dart';
 
 Dio createDio({String baseUrl = 'https://api.example.com'}) {
   final dio = Dio(
@@ -21,3 +21,4 @@ Dio createDio({String baseUrl = 'https://api.example.com'}) {
 
   return dio;
 }
+

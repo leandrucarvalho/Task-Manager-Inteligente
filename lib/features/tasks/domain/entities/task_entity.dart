@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 
 enum TaskPriority { low, medium, high }
 
@@ -49,3 +49,4 @@ class TaskEntity extends Equatable {
         createdAt,
       ];
 }
+

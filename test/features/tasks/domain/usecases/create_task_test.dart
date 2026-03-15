@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+﻿import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:task_manager_inteligente/features/tasks/domain/entities/task_entity.dart';
@@ -34,3 +34,4 @@ void main() {
     verify(() => repository.createTask(task)).called(1);
   });
 }
+

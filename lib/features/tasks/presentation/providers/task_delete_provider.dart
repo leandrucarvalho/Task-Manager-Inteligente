@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+﻿import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'task_dependencies.dart';
 import 'task_list_provider.dart';
@@ -23,3 +23,4 @@ class TaskDeleteNotifier extends StateNotifier<AsyncValue<void>> {
 final taskDeleteProvider = StateNotifierProvider<TaskDeleteNotifier, AsyncValue<void>>(
   (ref) => TaskDeleteNotifier(ref),
 );
+
